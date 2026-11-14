@@ -99,6 +99,9 @@ let tablePagination = new LengkoDataTablePagination(Grid = dataGrid)
 dataGrid.DataSource <- dt
 ```
 
+<img width="1378" height="519" alt="image" src="https://github.com/user-attachments/assets/56f07df2-de15-4e81-b9b2-66d53e60e840" />
+
+
 ---
 
 ## License
