@@ -1,0 +1,120 @@
+<Window x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dt="clr-namespace:Lengko.Datatables.Wpf;assembly=Lengko.Datatables.Wpf"
+        Title="Lengko.Datatables.Wpf — VB.NET Demo"
+        Height="800" Width="1180" MinHeight="620" MinWidth="960"
+        WindowStartupLocation="CenterScreen"
+        Background="#F8FAFC"
+        FontFamily="Segoe UI" FontSize="13">
+
+    <Window.Resources>
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="Padding" Value="12,6" />
+            <Setter Property="Margin" Value="0,0,8,6" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="5" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.9" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Opacity" Value="0.75" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 1. Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,12">
+            <TextBlock x:Name="TxtTitle" Text="Lengko.Datatables Demo (VB.NET WPF)" FontSize="20" FontWeight="Bold" Foreground="#0F172A" />
+            <TextBlock x:Name="TxtSubtitle" Text="Inspired by DataTables.net. Zero external dependencies. Instant search, pagination, export, filters &amp; summaries." FontSize="13" Foreground="#64748B" Margin="0,2,0,0" />
+        </StackPanel>
+
+        <!-- 2. Feature Bar -->
+        <WrapPanel Grid.Row="1" Margin="0,0,0,10">
+            <Button x:Name="BtnTheme" Style="{StaticResource ActionButton}" Content="Theme: Light" Background="#475569" />
+            <Button x:Name="BtnGridStyle" Style="{StaticResource ActionButton}" Content="Grid Style: Standard" Background="#6366F1" />
+            <Button x:Name="BtnFilterRow" Style="{StaticResource ActionButton}" Content="Filter Row: On" Background="#3B82F6" />
+            <Button x:Name="BtnMultiSelect" Style="{StaticResource ActionButton}" Content="Multi-Select: Off" Background="#10B981" />
+            <Button x:Name="BtnSummary" Style="{StaticResource ActionButton}" Content="Summary: On" Background="#8B5CF6" />
+            <Button x:Name="BtnRowGroup" Style="{StaticResource ActionButton}" Content="Group by Office: Off" Background="#F59E0B" />
+            <Button x:Name="BtnChildRows" Style="{StaticResource ActionButton}" Content="Child Rows: Off" Background="#059669" />
+            <Button x:Name="BtnConditional" Style="{StaticResource ActionButton}" Content="Format (Age ≥ 60): Off" Background="#DC2626" />
+            <Button x:Name="BtnSaveState" Style="{StaticResource ActionButton}" Content="Save State" Background="#0EA5E9" />
+            <Button x:Name="BtnRestoreState" Style="{StaticResource ActionButton}" Content="Restore State" Background="#0EA5E9" />
+            <Button x:Name="BtnReset" Style="{StaticResource ActionButton}" Content="Reset Filters" Background="#64748B" />
+        </WrapPanel>
+
+        <!-- 3. Filter Chips Bar -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,10">
+            <TextBlock x:Name="TxtChipsLabel" Text="Office Quick Filter:" FontWeight="SemiBold" Foreground="#334155" VerticalAlignment="Center" Margin="0,0,10,0" />
+            <dt:LengkoDataTableFilterChips x:Name="FilterChips" ColumnName="Office" ShowCounts="True" />
+        </StackPanel>
+
+        <!-- 4. Table Card -->
+        <Border x:Name="TableCard" Grid.Row="3" Background="White" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="6" Padding="12">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Top Toolbar -->
+                <Grid Grid.Row="0" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="260" />
+                    </Grid.ColumnDefinitions>
+
+                    <dt:LengkoDataTableLength x:Name="TableLength" Grid.Column="0" />
+                    <dt:LengkoDataTableButtons x:Name="TableButtons" Grid.Column="1" Margin="12,0,0,0" ShowColVis="True" ShowResetFilter="True" />
+                    <dt:LengkoDataTableSearch x:Name="TableSearch" Grid.Column="3" PlaceholderText="Search employees..." />
+                </Grid>
+
+                <!-- Data Grid -->
+                <dt:LengkoDataTableGrid x:Name="DataGrid" Grid.Row="1" PageLength="10" ZebraStriping="True" />
+
+                <!-- Bottom Toolbar -->
+                <Grid Grid.Row="2" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <dt:LengkoDataTableInfo x:Name="TableInfo" Grid.Column="0" VerticalAlignment="Center" />
+                    <dt:LengkoDataTablePagination x:Name="TablePagination" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- 5. Quick Tips Footer -->
+        <TextBlock x:Name="TxtTips" Grid.Row="4" Margin="2,8,0,0" FontSize="12" Foreground="#64748B"
+                   Text="💡 Tips: Ketik langsung di Filter Row bawah header kolom. Klik header untuk sortir, klik kanan untuk ColVis &amp; Filter unik, atau switch Theme Dark/Light." />
+    </Grid>
+</Window>
